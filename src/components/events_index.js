@@ -2,7 +2,16 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import {Link} from 'react-router-dom'
-
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from 'material-ui/Table'
+import FlootingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 import { readEvents } from '../actions'
 
 class EventsIndex extends Component {
@@ -27,19 +36,22 @@ class EventsIndex extends Component {
   render(){
     return(
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Body</th>
-            </tr>
-          </thead>
+        <Table>
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+          >
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Body</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
+          <TableBody>
             {this.renderEvents()}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
 
         <Link to="/events/new">New Event</Link>
       </React.Fragment>
