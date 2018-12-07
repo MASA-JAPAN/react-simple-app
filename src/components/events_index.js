@@ -10,7 +10,7 @@ import {
   TableRow,
   TableRowColumn
 } from 'material-ui/Table'
-import FlootingActionButton from 'material-ui/FloatingActionButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import { readEvents } from '../actions'
 
@@ -21,21 +21,29 @@ class EventsIndex extends Component {
 
   renderEvents(){
     return _.map(this.props.events, event =>(
-      <tr key = {event.id}>
-        <td>{event.id}</td>
-        <td>
+      <TableRow key = {event.id}>
+        <TableRowColumn>{event.id}</TableRowColumn>
+        <TableRowColumn>
           <Link to={`/events/${event.id}`}>
             {event.title}
           </Link>
-        </td>
-        <td>{event.body}</td>
-      </tr>
+        </TableRowColumn>
+        <TableRowColumn>{event.body}</TableRowColumn>
+      </TableRow>
     ))
   }
 
   render(){
+    const style = {
+      position: 'fixed',
+      right:12,
+      bottom:12
+    }
     return(
       <React.Fragment>
+        <FloatingActionButton style={style} containerElement={<Link to="/events/new"/>}>
+          <ContentAdd/>
+        </FloatingActionButton>
         <Table>
           <TableHeader
             displaySelectAll={false}
@@ -48,12 +56,10 @@ class EventsIndex extends Component {
             </TableRow>
           </TableHeader>
 
-          <TableBody>
+          <TableBody displayRowCheckbox={false}>
             {this.renderEvents()}
           </TableBody>
         </Table>
-
-        <Link to="/events/new">New Event</Link>
       </React.Fragment>
     )
   }
